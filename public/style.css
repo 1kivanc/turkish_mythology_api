@@ -1,0 +1,64 @@
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.light-mode {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.navbar {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar.dark-mode {
+    background-color: #1c1c1c;
+}
+
+.navbar.light-mode {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand, .nav-link {
+    color: inherit !important;
+}
+
+.section-title {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: bold;
+    transition: color 0.3s;
+    color: inherit;
+}
+
+.code-block {
+    border-radius: 5px;
+    padding: 15px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.code-block.dark-mode {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.code-block.light-mode {
+    background-color: #e9ecef;
+    color: #212529;
+}
+
+pre {
+    margin: 0;
+}
+
+.theme-toggle {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: inherit;
+    transition: color 0.3s;
+}

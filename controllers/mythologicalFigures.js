@@ -1,35 +1,80 @@
 const MythologicalFigure = require("../models/MythologicalFigure");
 
 exports.getAllFigures = async (req, res) => {
+  const lang = req.query.lang || "tr";
+
   try {
     const figures = await MythologicalFigure.find();
-    res.json(figures);
+
+    const response = figures.map((figure) => ({
+      name: figure.name,
+      descriptions: {
+        short: figure.descriptions.short[lang],
+        long: figure.descriptions.long[lang],
+      },
+      attributes: figure.attributes[lang],
+      symbols: figure.symbols[lang],
+      associatedAnimals: figure.associatedAnimals[lang],
+      image: figure.image,
+    }));
+
+    res.json(response);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
 exports.getFigureById = async (req, res) => {
+  const lang = req.query.lang || "tr";
+
   try {
     const figure = await MythologicalFigure.findById(req.params.id);
-    if (figure == null) {
+    if (!figure) {
       return res.status(404).json({ message: "Mitolojik karakter bulunamadı" });
     }
-    res.json(figure);
+    const response = {
+      name: figure.name,
+      descriptions: {
+        short: figure.descriptions.short[lang],
+        long: figure.descriptions.long[lang],
+      },
+      attributes: figure.attributes[lang],
+      symbols: figure.symbols[lang],
+      associatedAnimals: figure.associatedAnimals[lang],
+      image: figure.image,
+    };
+
+    res.json(response);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
-
 exports.createFigure = async (req, res) => {
   const figure = new MythologicalFigure({
     name: req.body.name,
-    shortDesc: req.body.shortDesc,
-    longDesc: req.body.longDesc,
-    attributes: req.body.attributes,
-    symbol: req.body.symbol,
-    associatedAnimals: req.body.associatedAnimals,
-    image: req.body.image,
+    descriptions: {
+      short: {
+        tr: req.body.shortDescTr,
+        en: req.body.shortDescEn,
+      },
+      long: {
+        tr: req.body.longDescTr,
+        en: req.body.longDescEn,
+      },
+    },
+    attributes: {
+      tr: req.body.attributesTr || [],
+      en: req.body.attributesEn || [],
+    },
+    symbols: {
+      tr: req.body.symbolTr || "",
+      en: req.body.symbolEn || "",
+    },
+    associatedAnimals: {
+      tr: req.body.associatedAnimalsTr || [],
+      en: req.body.associatedAnimalsEn || [],
+    },
+    image: req.body.image || "",
   });
 
   try {
@@ -39,31 +84,45 @@ exports.createFigure = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-
 exports.updateFigure = async (req, res) => {
   try {
     const figure = await MythologicalFigure.findById(req.params.id);
-    if (figure == null) {
+    if (!figure) {
       return res.status(404).json({ message: "Mitolojik karakter bulunamadı" });
     }
 
     if (req.body.name != null) {
       figure.name = req.body.name;
     }
-    if (req.body.shortDesc != null) {
-      figure.shortDesc = req.body.shortDesc;
+    if (req.body.shortDescTr != null) {
+      figure.descriptions.short.tr = req.body.shortDescTr;
     }
-    if (req.body.longDesc != null) {
-      figure.longDesc = req.body.longDesc;
+    if (req.body.shortDescEn != null) {
+      figure.descriptions.short.en = req.body.shortDescEn;
     }
-    if (req.body.attributes != null) {
-      figure.attributes = req.body.attributes;
+    if (req.body.longDescTr != null) {
+      figure.descriptions.long.tr = req.body.longDescTr;
     }
-    if (req.body.symbol != null) {
-      figure.symbol = req.body.symbol;
+    if (req.body.longDescEn != null) {
+      figure.descriptions.long.en = req.body.longDescEn;
     }
-    if (req.body.associatedAnimals != null) {
-      figure.associatedAnimals = req.body.associatedAnimals;
+    if (req.body.attributesTr != null) {
+      figure.attributes.tr = req.body.attributesTr;
+    }
+    if (req.body.attributesEn != null) {
+      figure.attributes.en = req.body.attributesEn;
+    }
+    if (req.body.symbolTr != null) {
+      figure.symbols.tr = req.body.symbolTr;
+    }
+    if (req.body.symbolEn != null) {
+      figure.symbols.en = req.body.symbolEn;
+    }
+    if (req.body.associatedAnimalsTr != null) {
+      figure.associatedAnimals.tr = req.body.associatedAnimalsTr;
+    }
+    if (req.body.associatedAnimalsEn != null) {
+      figure.associatedAnimals.en = req.body.associatedAnimalsEn;
     }
     if (req.body.image != null) {
       figure.image = req.body.image;
@@ -75,7 +134,6 @@ exports.updateFigure = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-
 exports.deleteFigure = async (req, res) => {
   try {
     const figure = await MythologicalFigure.findById(req.params.id);
@@ -83,7 +141,6 @@ exports.deleteFigure = async (req, res) => {
       return res.status(404).json({ message: "Mitolojik karakter bulunamadı" });
     }
 
-    // Silme işlemi
     await MythologicalFigure.deleteOne({ _id: req.params.id });
     res.json({ message: "Mitolojik karakter başarıyla silindi" });
   } catch (err) {

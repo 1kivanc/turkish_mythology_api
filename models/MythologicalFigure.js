@@ -7,27 +7,27 @@ const mythologicalFigureSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    shortDesc: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    longDesc: {
-      type: String,
-      required: true,
-      trim: true,
+    descriptions: {
+      short: {
+        tr: { type: String, required: true, trim: true },
+        en: { type: String, trim: true },
+      },
+      long: {
+        tr: { type: String, required: true, trim: true },
+        en: { type: String, trim: true },
+      },
     },
     attributes: {
-      type: [String],
-      default: [],
+      tr: { type: [String], default: [] },
+      en: { type: [String], default: [] },
     },
-    symbol: {
-      type: String,
-      trim: true,
+    symbols: {
+      tr: { type: String, trim: true },
+      en: { type: String, trim: true },
     },
     associatedAnimals: {
-      type: [String],
-      default: [],
+      tr: { type: [String], default: [] },
+      en: { type: [String], default: [] },
     },
     image: {
       type: String,

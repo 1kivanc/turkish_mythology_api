@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türk Mitolojisi API Dökümantasyonu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Türk Mitolojisi API</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <i class="fa-solid fa-sun theme-toggle" id="themeToggle"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+        <div id="overview" class="section-title">Genel Bakış</div>
+        <p>Hoş geldiniz! Bu API, Türk mitolojisindeki karakterler hakkında bilgi edinmek isteyenler için harika bir kaynak. İster tüm figürleri listeleyin, ister belirli bir karakterin detaylarını öğrenin. Sadece admin kullanıcılar karakter ekleyip güncelleyebilir.</p>
+
+        <div id="routes" class="section-title">Temel Rotalar</div>
+
+        <div class="mb-4">
+            <h5>1. Tüm Mitolojik Karakterleri Listele</h5>
+            <div class="code-block">
+                <code>GET /api/mythologicalFigures</code>
+            </div>
+            <p>Bu rotayı kullanarak veritabanındaki tüm mitolojik karakterlerin bilgilerine ulaşabilirsiniz. İsterseniz dil seçeneği de ekleyebilirsiniz.</p>
+            <p>Örnek İstek: <code>GET /api/mythologicalFigures?lang=en</code> (Bu, İngilizce dilinde veri döndürür.)</p>
+            <p>Örnek Yanıt:</p>
+            <pre class="code-block">
+[
+    {
+        "name": "Ülgen",
+        "descriptions": {
+            "short": "The sky god in Turkish mythology.",
+            "long": "Ülgen is the sky god in Turkish mythology, symbolizing goodness and protective powers..."
+        },
+        "attributes": ["Creative power", "Protective", "Wise"],
+        "symbols": "Sun",
+        "associatedAnimals": ["Eagle"],
+        "image": "https://example.com/images/ulgen.jpg"
+    },
+    {
+        "name": "Erlik",
+        "descriptions": {
+            "short": "The god of the underworld in Turkish mythology.",
+            "long": "Erlik is the god of the underworld in Turkish mythology, representing darkness and evil..."
+        },
+        "attributes": ["Dark power", "Underworld", "Strong"],
+        "symbols": "Black horse",
+        "associatedAnimals": ["Wolf"],
+        "image": "https://example.com/images/erlik.jpg"
+    }
+]
+            </pre>
+        </div>
+
+        <div class="mb-4">
+            <h5>2. Belirli Bir Mitolojik Karakteri Getir</h5>
+            <div class="code-block">
+                <code>GET /api/mythologicalFigures/:id</code>
+            </div>
+            <p>Belirli bir karakterin detaylarını öğrenmek mi istiyorsunuz? Bu rota tam size göre!</p>
+            <p>Örnek İstek: <code>GET /api/mythologicalFigures/1234567890abcdef?lang=en</code></p>
+            <p>Örnek Yanıt:</p>
+            <pre class="code-block">
+{
+    "name": "Ülgen",
+    "descriptions": {
+        "short": "The sky god in Turkish mythology.",
+        "long": "Ülgen is the sky god in Turkish mythology, symbolizing goodness and protective powers..."
+    },
+    "attributes": ["Creative power", "Protective", "Wise"],
+    "symbols": "Sun",
+    "associatedAnimals": ["Eagle"],
+    "image": "https://example.com/images/ulgen.jpg"
+}
+            </pre>
+        </div>
+
+        <div class="mb-4">
+            <h5>3. Yeni Mitolojik Karakter Ekle</h5>
+            <div class="code-block">
+                <code>POST /api/mythologicalFigures</code>
+            </div>
+            <p>Yeni bir karakter mi eklemek istiyorsunuz? Sadece admin kullanıcılar bu işlemi yapabilir. İşte nasıl yapacağınız:</p>
+            <p>Örnek İstek Gövdesi:</p>
+            <pre class="code-block">
+{
+    "name": "Ülgen",
+    "descriptions": {
+        "short": {
+            "tr": "Türk mitolojisinde gök tanrısıdır.",
+            "en": "The sky god in Turkish mythology."
+        },
+        "long": {
+            "tr": "Türk mitolojisinde gök tanrısıdır ve iyiliğin, koruyucu güçlerin simgesidir...",
+            "en": "Ülgen is the sky god in Turkish mythology, symbolizing goodness and protective powers..."
+        }
+    },
+    "attributes": {
+        "tr": ["Yaratıcı güç", "Koruyucu", "Bilge"],
+        "en": ["Creative power", "Protective", "Wise"]
+    },
+    "symbols": {
+        "tr": "Güneş",
+        "en": "Sun"
+    },
+    "associatedAnimals": {
+        "tr": ["Kartal"],
+        "en": ["Eagle"]
+    },
+    "image": "https://example.com/images/ulgen.jpg"
+}
+            </pre>
+        </div>
+
+        <div class="mb-4">
+            <h5>4. Mitolojik Karakter Güncelle</h5>
+            <div class="code-block">
+                <code>PATCH /api/mythologicalFigures/:id</code>
+            </div>
+            <p>Bu rota ile mevcut bir karakterin bilgilerini güncelleyebilirsiniz. Tabi ki bu da admin kullanıcılar için geçerli.</p>
+            <p>Örnek İstek Gövdesi:</p>
+            <pre class="code-block">
+{
+    "name": "Ülgen",
+    "descriptions": {
+        "short": {
+            "tr": "Güncellenmiş kısa açıklama",
+            "en": "Updated short description"
+        }
+    }
+}
+            </pre>
+        </div>
+
+        <div class="mb-4">
+            <h5>5. Mitolojik Karakter Sil</h5>
+            <div class="code-block">
+                <code>DELETE /api/mythologicalFigures/:id</code>
+            </div>
+            <p>Bir karakteri silmek için bu rotayı kullanabilirsiniz. Unutmayın, bu işlem yalnızca admin kullanıcılar için geçerli.</p>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

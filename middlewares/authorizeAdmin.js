@@ -1,5 +1,5 @@
 const authorizeAdmin = (req, res, next) => {
-  if (req.user.username !== "admin") {
+  if (req.session.userRole !== "admin") {
     return res
       .status(403)
       .json({ message: "Erişim reddedildi: Yeterli yetkiniz yok." });
