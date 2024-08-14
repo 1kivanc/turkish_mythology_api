@@ -12,6 +12,7 @@ connectDB();
 
 app.use(bodyParser.json());
 app.use(express.json());
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -21,10 +22,16 @@ app.use(
   })
 );
 
+app.use(express.static("public"));
+
 const authRouter = require("./routes/auth");
 app.use("/api/auth", authRouter);
 
 const mythologicalFiguresRouter = require("./routes/mythologicalFigures");
 app.use("/api/mythologicalFigures", mythologicalFiguresRouter);
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 module.exports = app;
