@@ -11,5 +11,9 @@
       "src": "/(.*)",
       "dest": "/app.js"
     }
+  ],
+  "rewrites": [
+    { "source": "/style.css", "destination": "/public/style.css" },
+    { "source": "/script.js", "destination": "/public/script.js" }
   ]
 }
