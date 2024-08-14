@@ -7,8 +7,8 @@ const connectDB = require("./config/db");
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
 
+// Veritabanı bağlantısını başlatın
 connectDB();
 
 app.use(bodyParser.json());
@@ -22,12 +22,12 @@ app.use(
   })
 );
 
+// Rotalar
 const authRouter = require("./routes/auth");
 app.use("/api/auth", authRouter);
 
 const mythologicalFiguresRouter = require("./routes/mythologicalFigures");
 app.use("/api/mythologicalFigures", mythologicalFiguresRouter);
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+// Vercel'in serverless işlevi olarak çalıştırılacak
+module.exports = app;
