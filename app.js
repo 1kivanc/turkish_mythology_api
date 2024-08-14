@@ -8,7 +8,6 @@ dotenv.config();
 
 const app = express();
 
-// Veritabanı bağlantısını başlatın
 connectDB();
 
 app.use(bodyParser.json());
@@ -22,12 +21,10 @@ app.use(
   })
 );
 
-// Rotalar
 const authRouter = require("./routes/auth");
 app.use("/api/auth", authRouter);
 
 const mythologicalFiguresRouter = require("./routes/mythologicalFigures");
 app.use("/api/mythologicalFigures", mythologicalFiguresRouter);
 
-// Vercel'in serverless işlevi olarak çalıştırılacak
 module.exports = app;
