@@ -12,9 +12,9 @@ const {
 
 router.get("/", getAllFigures);
 
-router.get("/:id", getFigureById);
-
 router.get("/random", getRandomFigure);
+
+router.get("/:id", getFigureById);
 
 router.post("/", authorizeAdmin, createFigure);
 
