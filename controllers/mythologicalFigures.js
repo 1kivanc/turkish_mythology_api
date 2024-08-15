@@ -49,6 +49,36 @@ exports.getFigureById = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+exports.getRandomFigure = async (req, res) => {
+  const lang = req.query.lang || "tr";
+
+  try {
+    const figures = await MythologicalFigure.find();
+    if (figures.length === 0) {
+      return res.status(404).json({ message: "Mitolojik karakter bulunamadı" });
+    }
+
+    const randomIndex = Math.floor(Math.random() * figures.length);
+    const randomFigure = figures[randomIndex];
+
+    const response = {
+      name: randomFigure.name,
+      descriptions: {
+        short: randomFigure.descriptions.short[lang],
+        long: randomFigure.descriptions.long[lang],
+      },
+      attributes: randomFigure.attributes[lang],
+      symbols: randomFigure.symbols[lang],
+      associatedAnimals: randomFigure.associatedAnimals[lang],
+      image: randomFigure.image,
+    };
+
+    res.json(response);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 exports.createFigure = async (req, res) => {
   const figure = new MythologicalFigure({
     name: req.body.name,

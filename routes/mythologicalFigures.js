@@ -7,11 +7,14 @@ const {
   createFigure,
   updateFigure,
   deleteFigure,
+  getRandomFigure,
 } = require("../controllers/mythologicalFigures");
 
 router.get("/", getAllFigures);
 
 router.get("/:id", getFigureById);
+
+router.get("/random", getRandomFigure);
 
 router.post("/", authorizeAdmin, createFigure);
 

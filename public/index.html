@@ -8,74 +8,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-}
+            background-color: #121212;
+            color: #e0e0e0;
+        }
 
-body.light-mode {
-    background-color: #f8f9fa;
-    color: #212529;
-}
+        body.light-mode {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
 
-.navbar {
-    transition: background-color 0.3s, color 0.3s;
-}
+        .navbar {
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-.navbar.dark-mode {
-    background-color: #1c1c1c;
-}
+        .navbar.dark-mode {
+            background-color: #1c1c1c;
+        }
 
-.navbar.light-mode {
-    background-color: #f8f9fa;
-}
+        .navbar.light-mode {
+            background-color: #f8f9fa;
+        }
 
-.navbar-brand, .nav-link {
-    color: inherit !important;
-}
+        .navbar-brand, .nav-link {
+            color: inherit !important;
+        }
 
-.section-title {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-size: 1.75rem;
-    font-weight: bold;
-    transition: color 0.3s;
-    color: inherit;
-}
+        .section-title {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.75rem;
+            font-weight: bold;
+            transition: color 0.3s;
+            color: inherit;
+        }
 
-.code-block {
-    border-radius: 5px;
-    padding: 15px;
-    font-family: monospace;
-    font-size: 0.9rem;
-    overflow-x: auto;
-    transition: background-color 0.3s, color 0.3s;
-}
+        .code-block {
+            border-radius: 5px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-.code-block.dark-mode {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-}
+        .code-block.dark-mode {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
 
-.code-block.light-mode {
-    background-color: #e9ecef;
-    color: #212529;
-}
+        .code-block.light-mode {
+            background-color: #e9ecef;
+            color: #212529;
+        }
 
-pre {
-    margin: 0;
-}
+        pre {
+            margin: 0;
+        }
 
-.theme-toggle {
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: inherit;
-    transition: color 0.3s;
-}
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: inherit;
+            transition: color 0.3s;
+        }
 
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg fixed-top">
+<body class="dark-mode"> 
+    <nav class="navbar navbar-expand-lg fixed-top dark-mode">
         <div class="container">
             <a class="navbar-brand" href="#">Türk Mitolojisi API</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,19 +93,19 @@ pre {
     
     <div class="container mt-5">
         <div id="overview" class="section-title">Genel Bakış</div>
-        <p>Hoş geldiniz! Bu API, Türk mitolojisindeki karakterler hakkında bilgi edinmek isteyenler için harika bir kaynak. İster tüm figürleri listeleyin, ister belirli bir karakterin detaylarını öğrenin. Sadece admin kullanıcılar karakter ekleyip güncelleyebilir.</p>
+        <p>Hoş geldiniz! Bu API, Türk mitolojisindeki karakterler hakkında bilgi edinmek isteyenler kullanışlı bir kaynak. İster tüm figürleri listeleyin, ister belirli bir karakterin detaylarını öğrenin. Sadece admin kullanıcılar karakter ekleyip güncelleyebilir.</p>
 
         <div id="routes" class="section-title">Temel Rotalar</div>
 
         <div class="mb-4">
             <h5>1. Tüm Mitolojik Karakterleri Listele</h5>
-            <div class="code-block">
+            <div class="code-block dark-mode">
                 <code>GET /api/mythologicalFigures</code>
             </div>
             <p>Bu rotayı kullanarak veritabanındaki tüm mitolojik karakterlerin bilgilerine ulaşabilirsiniz. İsterseniz dil seçeneği de ekleyebilirsiniz.</p>
             <p>Örnek İstek: <code>GET /api/mythologicalFigures?lang=en</code> (Bu, İngilizce dilinde veri döndürür.)</p>
             <p>Örnek Yanıt:</p>
-            <pre class="code-block">
+            <pre class="code-block dark-mode">
 [
     {
         "name": "Ülgen",
@@ -135,13 +135,13 @@ pre {
 
         <div class="mb-4">
             <h5>2. Belirli Bir Mitolojik Karakteri Getir</h5>
-            <div class="code-block">
+            <div class="code-block dark-mode">
                 <code>GET /api/mythologicalFigures/:id</code>
             </div>
             <p>Belirli bir karakterin detaylarını öğrenmek mi istiyorsunuz? Bu rota tam size göre!</p>
             <p>Örnek İstek: <code>GET /api/mythologicalFigures/1234567890abcdef?lang=en</code></p>
             <p>Örnek Yanıt:</p>
-            <pre class="code-block">
+            <pre class="code-block dark-mode">
 {
     "name": "Ülgen",
     "descriptions": {
@@ -158,12 +158,12 @@ pre {
 
         <div class="mb-4">
             <h5>3. Yeni Mitolojik Karakter Ekle</h5>
-            <div class="code-block">
+            <div class="code-block dark-mode">
                 <code>POST /api/mythologicalFigures</code>
             </div>
             <p>Yeni bir karakter mi eklemek istiyorsunuz? Sadece admin kullanıcılar bu işlemi yapabilir. İşte nasıl yapacağınız:</p>
             <p>Örnek İstek Gövdesi:</p>
-            <pre class="code-block">
+            <pre class="code-block dark-mode">
 {
     "name": "Ülgen",
     "descriptions": {
@@ -195,12 +195,12 @@ pre {
 
         <div class="mb-4">
             <h5>4. Mitolojik Karakter Güncelle</h5>
-            <div class="code-block">
+            <div class="code-block dark-mode">
                 <code>PATCH /api/mythologicalFigures/:id</code>
             </div>
             <p>Bu rota ile mevcut bir karakterin bilgilerini güncelleyebilirsiniz. Tabi ki bu da admin kullanıcılar için geçerli.</p>
             <p>Örnek İstek Gövdesi:</p>
-            <pre class="code-block">
+            <pre class="code-block dark-mode">
 {
     "name": "Ülgen",
     "descriptions": {
@@ -215,7 +215,7 @@ pre {
 
         <div class="mb-4">
             <h5>5. Mitolojik Karakter Sil</h5>
-            <div class="code-block">
+            <div class="code-block dark-mode">
                 <code>DELETE /api/mythologicalFigures/:id</code>
             </div>
             <p>Bir karakteri silmek için bu rotayı kullanabilirsiniz. Unutmayın, bu işlem yalnızca admin kullanıcılar için geçerli.</p>
@@ -226,43 +226,61 @@ pre {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         const themeToggle = document.getElementById("themeToggle");
+        const body = document.body;
+        const navbar = document.querySelector('.navbar');
+        const sectionTitles = document.querySelectorAll('.section-title');
+        const codeBlocks = document.querySelectorAll('.code-block');
 
-themeToggle.addEventListener("click", function () {
-  if (document.body.style.backgroundColor === "rgb(18, 18, 18)") {
-    document.body.style.backgroundColor = "#f8f9fa";
-    document.body.style.color = "#212529";
-    themeToggle.className = "fa-solid fa-moon theme-toggle";
-    document
-      .querySelectorAll(".navbar")
-      .forEach((el) => (el.style.backgroundColor = "#f8f9fa"));
-    document
-      .querySelectorAll(".navbar-brand, .nav-link")
-      .forEach((el) => (el.style.color = "#212529"));
-    document
-      .querySelectorAll(".section-title")
-      .forEach((el) => (el.style.color = "#212529"));
-    document
-      .querySelectorAll(".code-block")
-      .forEach((el) => (el.style.backgroundColor = "#e9ecef"));
-  } else {
-    document.body.style.backgroundColor = "#121212";
-    document.body.style.color = "#e0e0e0";
-    themeToggle.className = "fa-solid fa-sun theme-toggle";
-    document
-      .querySelectorAll(".navbar")
-      .forEach((el) => (el.style.backgroundColor = "#1c1c1c"));
-    document
-      .querySelectorAll(".navbar-brand, .nav-link")
-      .forEach((el) => (el.style.color = "#e0e0e0"));
-    document
-      .querySelectorAll(".section-title")
-      .forEach((el) => (el.style.color = "#e0e0e0"));
-    document
-      .querySelectorAll(".code-block")
-      .forEach((el) => (el.style.backgroundColor = "#1e1e1e"));
-  }
-});
+        let isDarkMode = true;
 
+        themeToggle.addEventListener("click", function () {
+            isDarkMode = !isDarkMode;
+
+            if (isDarkMode) {
+                body.classList.add("dark-mode");
+                body.classList.remove("light-mode");
+
+                navbar.classList.add("dark-mode");
+                navbar.classList.remove("light-mode");
+
+                sectionTitles.forEach(el => {
+                    el.classList.add("dark-mode");
+                    el.classList.remove("light-mode");
+                });
+
+                codeBlocks.forEach(el => {
+                    el.classList.add("dark-mode");
+                    el.classList.remove("light-mode");
+                });
+
+                themeToggle.className = "fa-solid fa-sun theme-toggle";
+            } else {
+                body.classList.add("light-mode");
+                body.classList.remove("dark-mode");
+
+                navbar.classList.add("light-mode");
+                navbar.classList.remove("dark-mode");
+
+                sectionTitles.forEach(el => {
+                    el.classList.add("light-mode");
+                    el.classList.remove("dark-mode");
+                });
+
+                codeBlocks.forEach(el => {
+                    el.classList.add("light-mode");
+                    el.classList.remove("dark-mode");
+                });
+
+                themeToggle.className = "fa-solid fa-moon theme-toggle";
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            body.classList.add("dark-mode");
+            navbar.classList.add("dark-mode");
+            sectionTitles.forEach(el => el.classList.add("dark-mode"));
+            codeBlocks.forEach(el => el.classList.add("dark-mode"));
+        });
     </script>
 </body>
 </html>
