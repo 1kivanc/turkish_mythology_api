@@ -22,8 +22,7 @@ app.use(
   })
 );
 
-app.use(express.static("public"));
-
+app.use("/public", express.static(__dirname + "/public"));
 const authRouter = require("./routes/auth");
 app.use("/api/auth", authRouter);
 
@@ -33,5 +32,9 @@ app.use("/api/mythologicalFigures", mythologicalFiguresRouter);
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
+
+// app.listen(3000, () => {
+//   console.log("Server is running on port 3000");
+// });
 
 module.exports = app;
