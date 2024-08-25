@@ -2,11 +2,23 @@ const MythologicalFigure = require("../models/MythologicalFigure");
 
 exports.getAllFigures = async (req, res) => {
   const lang = req.query.lang || "tr";
+  const limit = parseInt(req.query.limit, 10) || 0;
 
   try {
-    const figures = await MythologicalFigure.find();
+    let figures = await MythologicalFigure.find();
+
+    if (limit > 0) {
+      figures = figures.slice(0, limit);
+    }
+
+    if (figures.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "İstenen sayıda mitolojik karakter bulunamadı" });
+    }
 
     const response = figures.map((figure) => ({
+      id: figure._id,
       name: figure.name,
       descriptions: {
         short: figure.descriptions.short[lang],
@@ -33,6 +45,7 @@ exports.getFigureById = async (req, res) => {
       return res.status(404).json({ message: "Mitolojik karakter bulunamadı" });
     }
     const response = {
+      id: figure._id,
       name: figure.name,
       descriptions: {
         short: figure.descriptions.short[lang],
@@ -62,6 +75,7 @@ exports.getRandomFigure = async (req, res) => {
     const randomFigure = figures[randomIndex];
 
     const response = {
+      id: randomFigure._id,
       name: randomFigure.name,
       descriptions: {
         short: randomFigure.descriptions.short[lang],
@@ -81,6 +95,7 @@ exports.getRandomFigure = async (req, res) => {
 
 exports.createFigure = async (req, res) => {
   const figure = new MythologicalFigure({
+    id: figure._id,
     name: req.body.name,
     descriptions: {
       short: {
