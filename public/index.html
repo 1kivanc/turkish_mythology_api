@@ -27,7 +27,7 @@
     
     <div class="container mt-5">
         <div id="overview" class="section-title">Genel Bakış</div>
-        <p>Hoş geldiniz! Bu API, Türk mitolojisindeki karakterler hakkında bilgi edinmek isteyenler kullanışlı bir kaynak. İster tüm figürleri listeleyin, ister belirli bir karakterin detaylarını öğrenin. Sadece admin kullanıcılar karakter ekleyip güncelleyebilir.</p>
+        <p>Hoş geldiniz! Bu API, Türk mitolojisindeki karakterler hakkında bilgi edinmek isteyenler için kullanışlı bir kaynaktır. İster tüm figürleri listeleyin, ister belirli bir karakterin detaylarını öğrenin. Sadece admin kullanıcılar karakter ekleyip güncelleyebilir.</p>
 
         <div id="routes" class="section-title">Temel Rotalar</div>
 
@@ -36,8 +36,12 @@
             <div class="code-block dark-mode">
                 <code>GET /api/mythologicalFigures</code>
             </div>
-            <p>Bu rotayı kullanarak veritabanındaki tüm mitolojik karakterlerin bilgilerine ulaşabilirsiniz. İsterseniz dil seçeneği de ekleyebilirsiniz.</p>
-            <p>Örnek İstek: <code>GET /api/mythologicalFigures?lang=en</code> (Bu, İngilizce dilinde veri döndürür.)</p>
+            <p>Bu rotayı kullanarak veritabanındaki tüm mitolojik karakterlerin bilgilerine ulaşabilirsiniz. İsterseniz dil seçeneği ve limit ekleyerek sadece istediğiniz sayıda karakteri çekebilirsiniz.</p>
+            <p>Örnek İstek:</p>
+            <ul>
+                <li><code>GET /api/mythologicalFigures?lang=en</code> (Bu, İngilizce dilinde veri döndürür.)</li>
+                <li><code>GET /api/mythologicalFigures?limit=3</code> (Bu, sadece 3 karakter döndürür.)</li>
+            </ul>
             <p>Örnek Yanıt:</p>
             <pre class="code-block dark-mode">
 [
@@ -66,9 +70,46 @@
 ]
             </pre>
         </div>
-
         <div class="mb-4">
-            <h5>2. Belirli Bir Mitolojik Karakteri Getir</h5>
+            <h5>2. Belirli Sayıda Mitolojik Karakter Listele</h5>
+            <div class="code-block dark-mode">
+                <code>GET /api/mythologicalFigures?limit={number}</code>
+            </div>
+            <p>Bu rota, veritabanındaki belirli bir sayıda mitolojik karakterin bilgilerini döndürür. İstediğiniz karakter sayısını `limit` parametresi ile belirleyebilirsiniz. Eğer `limit` parametresi belirtilmezse, tüm karakterler döndürülür.</p>
+            <p>Örnek İstek:</p>
+            <ul>
+                <li><code>GET /api/mythologicalFigures?limit=3</code> (Bu, sadece 3 karakter döndürür.)</li>
+            </ul>
+            <p>Örnek Yanıt:</p>
+            <pre class="code-block dark-mode">
+[
+    {
+        "name": "Ülgen",
+        "descriptions": {
+            "short": "The sky god in Turkish mythology.",
+            "long": "Ülgen is the sky god in Turkish mythology, symbolizing goodness and protective powers..."
+        },
+        "attributes": ["Creative power", "Protective", "Wise"],
+        "symbols": "Sun",
+        "associatedAnimals": ["Eagle"],
+        "image": "https://example.com/images/ulgen.jpg"
+    },
+    {
+        "name": "Erlik",
+        "descriptions": {
+            "short": "The god of the underworld in Turkish mythology.",
+            "long": "Erlik is the god of the underworld in Turkish mythology, representing darkness and evil..."
+        },
+        "attributes": ["Dark power", "Underworld", "Strong"],
+        "symbols": "Black horse",
+        "associatedAnimals": ["Wolf"],
+        "image": "https://example.com/images/erlik.jpg"
+    }
+]
+            </pre>
+        </div>
+        <div class="mb-4">
+            <h5>3. Belirli Bir Mitolojik Karakteri Getir</h5>
             <div class="code-block dark-mode">
                 <code>GET /api/mythologicalFigures/:id</code>
             </div>
@@ -89,41 +130,36 @@
 }
             </pre>
         </div>
+
         <div class="mb-4">
-            <h5>3. Rastgele Bir Mitolojik Karakter Getir</h5>
+            <h5>4. Rastgele Bir Mitolojik Karakter Getir</h5>
             <div class="code-block dark-mode">
                 <code>GET /api/mythologicalFigures/random</code>
             </div>
-            <p>Karakter detayları ingilizce getirmek için;</p>
+            <p>Rastgele bir mitolojik karakterin detaylarını mı öğrenmek istiyorsunuz? Bu rota ile her seferinde farklı bir karakter alabilirsiniz!</p>
+            <p>Karakter detaylarını İngilizce almak için:</p>
             <div class="code-block dark-mode">
                 <code>GET /api/mythologicalFigures/random?lang=en</code>
             </div>
-            <p>Rastgele bir mitolojik karakterin detaylarını mı öğrenmek istiyorsunuz? Bu rota ile her seferinde farklı bir karakter alabilirsiniz!</p>
             <p>Örnek İstek: <code>GET /api/mythologicalFigures/random</code></p>
             <p>Örnek Yanıt:</p>
-            <pre class="code-block dark-mode" id="random-character">
-                {
-                    "name": "Kayra Han",
-                    "descriptions": {
-                        "short": "Kayra Han, Altay Türklerine göre gökyüzündeki tanrıların en büyüğüdür. 17. katta oturur ve evrenin kaderini tayin eder. Bütün tanrıların babasıdır.",
-                        "long": "Kayra Han, Altay Türklerine göre gökyüzündeki tanrıların en büyüğü olarak bilinir ve 17. katta oturur. Bütün tanrıların babası olan Kayra Han, evrenin kaderini tayin eder ve dünyanın yaradılışı ve sonu gibi konularda daima ön plandadır. Kayra Han, yeryüzünü yarattıktan sonra dokuz dallı bir çam diker ve 16. kata oğlu Ülgen’i oturtur. Kayra Han, dokuz kişinin bu dallardan türemesini ve dokuz ulusun buradan meydana gelmesini ister. O, insanoğlunun 'ata' ve 'ana'sıdır. Şamanlara göre Kayra Han’ın Ülgen, Kızagan, Mergen adında üç oğlu vardır. Bu tanrı, evrenin düzenini ve insanlık tarihinin başlangıcını şekillendiren güçlü bir figür olarak saygı görür."
-                    },
-                    "attributes": [
-                        "Yaratıcı",
-                        "Güçlü",
-                        "Evrenin düzeni"
-                    ],
-                    "symbols": "Çam ağacı",
-                    "associatedAnimals": [
-                        "Kurt"
-                    ],
-                    "image": "https://img-s2.onedio.com/id-553fad7eba1dc36d5679ae81/rev-0/w-635/listing/f-jpg-webp/s-401c305c6e8867974106ae1dc3dd959a160eb702.webp"
-                }
+            <pre class="code-block dark-mode">
+{
+    "name": "Kayra Han",
+    "descriptions": {
+        "short": "Kayra Han, Altay Türklerine göre gökyüzündeki tanrıların en büyüğüdür. 17. katta oturur ve evrenin kaderini tayin eder.",
+        "long": "Kayra Han, Altay Türklerine göre gökyüzündeki tanrıların en büyüğü olarak bilinir ve 17. katta oturur..."
+    },
+    "attributes": ["Yaratıcı", "Güçlü", "Evrenin düzeni"],
+    "symbols": "Çam ağacı",
+    "associatedAnimals": ["Kurt"],
+    "image": "https://img-s2.onedio.com/id-553fad7eba1dc36d5679ae81/rev-0/w-635/listing/f-jpg-webp/s-401c305c6e8867974106ae1dc3dd959a160eb702.webp"
+}
             </pre>
         </div>
-        
+
         <div class="mb-4">
-            <h5>4. Yeni Mitolojik Karakter Ekle</h5>
+            <h5>5. Yeni Mitolojik Karakter Ekle</h5>
             <div class="code-block dark-mode">
                 <code>POST /api/mythologicalFigures</code>
             </div>
@@ -160,7 +196,7 @@
         </div>
 
         <div class="mb-4">
-            <h5>5. Mitolojik Karakter Güncelle</h5>
+            <h5>6. Mitolojik Karakter Güncelle</h5>
             <div class="code-block dark-mode">
                 <code>PATCH /api/mythologicalFigures/:id</code>
             </div>
@@ -180,13 +216,14 @@
         </div>
 
         <div class="mb-4">
-            <h5>6. Mitolojik Karakter Sil</h5>
+            <h5>7. Mitolojik Karakter Sil</h5>
             <div class="code-block dark-mode">
                 <code>DELETE /api/mythologicalFigures/:id</code>
             </div>
             <p>Bir karakteri silmek için bu rotayı kullanabilirsiniz. Unutmayın, bu işlem yalnızca admin kullanıcılar için geçerli.</p>
         </div>
 
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
