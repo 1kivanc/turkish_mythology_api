@@ -73,8 +73,17 @@ GET /api/mythologicalFigures?lang=en
     }
 ]
 ```
+### 2. Belirli sayıda Belirli Sayıda Mitolojik Karakter Listele
 
-### 2. Belirli Bir Mitolojik Karakteri Getir
+Endpoint:
+```bash
+GET /api/mythologicalFigures?limit={number}
+```
+
+Bu rota, veritabanındaki belirli bir sayıda mitolojik karakterin bilgilerini döndürür. İstediğiniz karakter sayısını limit parametresi ile belirleyebilirsiniz. Eğer limit parametresi belirtilmezse, tüm karakterler döndürülür. Eğer veritabanında istenen sayıda karakter yoksa, mevcut olan karakterler döndürülür ve geri kalan için "İstenen sayıda mitolojik karakter bulunamadı" mesajı döner.
+
+
+### 3. Belirli Bir Mitolojik Karakteri Getir
 
 Endpoint:
 
@@ -104,7 +113,7 @@ GET /api/mythologicalFigures/1234567890abcdef?lang=en
 }
 ```
 
-### 3. Rastgele Bir Mitolojik Karakter Getir
+### 4. Rastgele Bir Mitolojik Karakter Getir
 
 Bu istek, Rastgele bir Mitolojik karakter getirir
 
@@ -138,7 +147,7 @@ GET /api/mythologicalFigures/random?lang=en
 }
 ```
 
-### 4. Yeni Mitolojik Karakter Ekle
+### 5. Yeni Mitolojik Karakter Ekle
 
 Endpoint:
 
@@ -179,7 +188,7 @@ Bu rota, yeni bir mitolojik karakter ekler. Bu işlem yalnızca yönetici kullan
 }
 ```
 
-### 5. Mitolojik Karakter Güncelle
+### 6. Mitolojik Karakter Güncelle
 
 Endpoint:
 
@@ -203,7 +212,7 @@ Bu rota, belirtilen id parametresine sahip mitolojik karakterin bilgilerini gün
 }
 ```
 
-### 6. Mitolojik Karakter Sil
+### 7. Mitolojik Karakter Sil
 
 Endpoint:
 
